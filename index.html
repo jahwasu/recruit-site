@@ -101,8 +101,8 @@ html, body {
 #p1 .inner {
   position: relative; z-index: 2;
   flex: 1; display: flex; flex-direction: column;
-  justify-content: center; align-items: center;
-  padding: 0 30px 80px;
+  justify-content: flex-start; align-items: center;
+  padding: calc(16.67% + 90px) 30px 0;
   text-align: center;
 }
 .badge-row { position: absolute; top: 16.67%; left: 0; right: 0; z-index: 3; display: flex; flex-direction: column; gap: 8px; align-items: center; }
@@ -113,8 +113,8 @@ html, body {
   padding: 6px 16px; border-radius: 16px;
   font-size: 12px; font-weight: 500; color: white;
 }
-.p1-title { font-size: 32px; color: white; line-height: 1.45; letter-spacing: -0.02em; margin-bottom: 20px; }
-.p1-sub { font-size: 16px; color: rgba(255,255,255,0.9); line-height: 1.6; margin-bottom: 68px; }
+.p1-title { font-size: 32px; color: white; line-height: 1.45; letter-spacing: -0.02em; margin-bottom: 30px; }
+.p1-sub { font-size: 16px; color: rgba(255,255,255,0.9); line-height: 1.8; height: auto; min-height: 300px; margin-bottom: 0; }
 .btn-gold {
   padding: 16px 40px; border-radius: 8px;
   font-size: 18px; font-weight: 700; cursor: pointer;
@@ -123,6 +123,7 @@ html, body {
   transition: all .3s;
 }
 .btn-gold:hover { background: var(--gold-hover); transform: translateY(-2px); box-shadow: 0 8px 20px rgba(255,215,0,.4); }
+#p1 .btn-gold { margin-top: auto; margin-bottom: max(60px, env(safe-area-inset-bottom) + 40px); }
 #p1 .footnote {
   position: absolute; bottom: max(20px, env(safe-area-inset-bottom)); left: 30px; right: 50px;
   z-index: 2; font-size: 12px; color: rgba(255,255,255,0.75); line-height: 1.5;
