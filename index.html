@@ -4,6 +4,12 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/>
 <title>연금 전문가 모집 - 알파본부</title>
+<meta property="og:type"        content="website"/>
+<meta property="og:title"       content="연금 전문가 모집 - 알파본부"/>
+<meta property="og:description" content="알파본부는 DB가 아닌 치열하게 도전할 시장(Market)을 제공합니다."/>
+<meta property="og:image"       content="https://jahwasu.github.io/recruit-site/main.jpg"/>
+<meta property="og:url"         content="https://jahwasu.github.io/recruit-site/"/>
+<meta name="twitter:card"       content="summary_large_image"/>
 <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet"/>
 <style>
@@ -811,9 +817,17 @@ document.addEventListener('keydown', e => {
 // ═══════════════════════════════════════════
 //  모달
 // ═══════════════════════════════════════════
-function openModal()  { document.getElementById('contactModal').classList.add('open'); }
-function closeModal() { document.getElementById('contactModal').classList.remove('open'); }
+function openModal() {
+  document.getElementById('contactModal').classList.add('open');
+  history.pushState({ modal: true }, '');
+}
+function closeModal() {
+  document.getElementById('contactModal').classList.remove('open');
+}
 function closeModalBg(e) { if (e.target.id === 'contactModal') closeModal(); }
+window.addEventListener('popstate', function() {
+  if (document.getElementById('contactModal').classList.contains('open')) closeModal();
+});
 
 // ═══════════════════════════════════════════
 //  라이트박스
