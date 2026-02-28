@@ -528,12 +528,12 @@ html, body {
       <div class="dark-inner">
         <div class="pg-title" style="margin-bottom:18px;">알파본부의 역량을<br/>데이터로 증명합니다.</div>
         <div class="kpi-grid">
-          <div class="kpi-card"><div class="kpi-icon ki1"><i class="fas fa-users"></i></div><div class="kpi-num">25,000명</div><div class="kpi-lbl">교육참여 임직원수</div></div>
-          <div class="kpi-card"><div class="kpi-icon ki2"><i class="fas fa-calendar-check"></i></div><div class="kpi-num">155회</div><div class="kpi-lbl">연간 재무교육 진행</div></div>
-          <div class="kpi-card"><div class="kpi-icon ki3"><i class="fas fa-user-check"></i></div><div class="kpi-num">890명</div><div class="kpi-lbl">교육후 재무상담 진행</div></div>
-          <div class="kpi-card"><div class="kpi-icon ki4"><i class="fas fa-chart-line"></i></div><div class="kpi-num">15건</div><div class="kpi-lbl">상담사 월 상담회수</div></div>
-          <div class="kpi-card"><div class="kpi-icon ki5"><i class="fas fa-redo"></i></div><div class="kpi-num">68%</div><div class="kpi-lbl">재무상담 2차 진행</div></div>
-          <div class="kpi-card"><div class="kpi-icon ki6"><i class="fas fa-robot"></i></div><div class="kpi-num">90%</div><div class="kpi-lbl">AI 상담가이드 활용목표</div></div>
+          <div class="kpi-card"><div class="kpi-icon ki1"><i class="fas fa-users"></i></div><div class="kpi-num" data-count="25000" data-suffix="명" data-sep="true">0명</div><div class="kpi-lbl">교육참여 임직원수</div></div>
+          <div class="kpi-card"><div class="kpi-icon ki2"><i class="fas fa-calendar-check"></i></div><div class="kpi-num" data-count="155" data-suffix="회">0회</div><div class="kpi-lbl">연간 재무교육 진행</div></div>
+          <div class="kpi-card"><div class="kpi-icon ki3"><i class="fas fa-user-check"></i></div><div class="kpi-num" data-count="890" data-suffix="명">0명</div><div class="kpi-lbl">교육후 재무상담 진행</div></div>
+          <div class="kpi-card"><div class="kpi-icon ki4"><i class="fas fa-chart-line"></i></div><div class="kpi-num" data-count="15" data-suffix="건">0건</div><div class="kpi-lbl">상담사 월 상담회수</div></div>
+          <div class="kpi-card"><div class="kpi-icon ki5"><i class="fas fa-redo"></i></div><div class="kpi-num" data-count="68" data-suffix="%">0%</div><div class="kpi-lbl">재무상담 2차 진행</div></div>
+          <div class="kpi-card"><div class="kpi-icon ki6"><i class="fas fa-robot"></i></div><div class="kpi-num" data-count="90" data-suffix="%">0%</div><div class="kpi-lbl">AI 상담가이드 활용목표</div></div>
         </div>
         <div class="kpi-note">* 2025년 실적기준</div>
       </div>
@@ -653,8 +653,38 @@ window.addEventListener('resize', () => {
   setTimeout(() => { track.style.transition = 'transform 0.5s cubic-bezier(0.4,0,0.2,1)'; }, 50);
 });
 
+// ═══════════════════════════════════════════
+//  KPI 카운트업 애니메이션
+// ═══════════════════════════════════════════
+function runKpiCountUp() {
+  const duration = 1800;
+  const cards = document.querySelectorAll('#p5 .kpi-num[data-count]');
+  cards.forEach(el => {
+    const target = parseInt(el.dataset.count, 10);
+    const suffix = el.dataset.suffix || '';
+    const sep    = el.dataset.sep === 'true';
+    const start  = performance.now();
+    function fmt(n) {
+      return sep ? n.toLocaleString('ko-KR') + suffix : n + suffix;
+    }
+    el.textContent = fmt(0);
+    function step(now) {
+      const t = Math.min((now - start) / duration, 1);
+      // easeOutQuart: 처음 빠르게, 마지막에 천천히
+      const ease = 1 - Math.pow(1 - t, 4);
+      const cur  = Math.round(target * ease);
+      el.textContent = fmt(cur);
+      if (t < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  });
+}
+
 // 슬라이더 리셋 콜백 등록소
 const sliderResets = {};
+
+// KPI 페이지(idx=4) 진입 시 카운트업 재실행
+sliderResets[4] = () => { runKpiCountUp(); };
 
 // 점 클릭
 pageDots.forEach(d =>
