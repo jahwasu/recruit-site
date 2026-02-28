@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
 <meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/>
 <title>연금 전문가 모집 - 알파본부</title>
 <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet"/>
@@ -148,10 +148,11 @@ html, body {
 }
 
 /* ══ PAGE 2 ══ */
-#p2 .cards-list { flex: 1; display: flex; flex-direction: column; gap: 10px; }
+#p2 .dark-inner { padding-bottom: max(16px, env(safe-area-inset-bottom)); }
+#p2 .cards-list { flex: 1; display: flex; flex-direction: column; gap: 7px; }
 .feature-card {
-  flex: 1; background: white; border-radius: 12px;
-  padding: 14px 16px; display: flex; align-items: center; gap: 14px;
+  flex: 1; background: white; border-radius: 10px;
+  padding: 10px 14px; display: flex; align-items: center; gap: 12px;
   box-shadow: 0 2px 8px rgba(0,0,0,.08); transition: all .3s;
 }
 .feature-card:active { transform: scale(0.96); }
@@ -204,7 +205,7 @@ html, body {
 .lb-cap-meta { font-size: 14px; color: rgba(255,255,255,.85); }
 
 /* ══ PAGE 4 ══ */
-#p4 .dark-inner { overflow-y: auto; -webkit-overflow-scrolling: touch; }
+#p4 .dark-inner { overflow-y: auto; -webkit-overflow-scrolling: touch; padding-bottom: max(16px, env(safe-area-inset-bottom)); }
 #p4 .cards-col { display: flex; flex-direction: column; gap: 14px; flex: 1; }
 .ws-card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 12px rgba(0,0,0,.08); flex: 1; display: flex; flex-direction: column; }
 .ws-img { width: 100%; height: 160px; object-fit: cover; flex-shrink: 0; }
@@ -378,26 +379,26 @@ html, body {
     <!-- PAGE 2 -->
     <div class="page dark-page" id="p2">
       <div class="dark-inner">
-        <div class="pg-title">고객사 임직원을 위한 6가지 특화 서비스</div>
+        <div class="pg-title">고객사 임직원을 위한 특화서비스 6</div>
         <div class="cards-list">
           <div class="feature-card">
             <div class="icon-circle ic1"><i class="fas fa-building"></i></div>
             <div>
               <div class="fc-title">사업장별 상담센터 운영</div>
-              <div class="fc-desc">고객사 임직원의 편안한 접근을 위해 구내식당 또는 편의시설 내에 위치한 밀착형 상담인프라를 갖추고 있습니다.</div>
+              <div class="fc-desc">임직원의 편안한 상담을 위해 구내식당・카페에 인접한 상담인프라를 운영합니다.</div>
             </div>
           </div>
           <div class="feature-card">
             <div class="icon-circle ic2"><i class="fas fa-chart-line"></i></div>
             <div>
               <div class="fc-title">연간 임직원 교육 155회 <span class="small-note" style="font-weight:400;">('25년 기준)</span></div>
-              <div class="fc-desc">고객사 전체 임직원을 대상으로 연간 한시간 분량의 자산관리/재무설계 교육을 수행하고 있습니다.</div>
+              <div class="fc-desc">전체 임직원 대상의 연간 교육과정(자산관리/재무설계 1hr)을 운영합니다.</div>
             </div>
           </div>
           <div class="feature-card">
             <div class="icon-circle ic3"><i class="fas fa-graduation-cap"></i></div>
             <div>
-              <div class="fc-title">신입사원 자산관리 첫걸음 교육 4회 <span class="small-note" style="font-weight:400;">('25년 기준)</span></div>
+              <div class="fc-title">신입사원 자산관리 교육 4회</div>
               <div class="fc-desc">신입사원 연수과정에 함께하여 사회 초년생의 자산증식 첫걸음을 돕고 있습니다.</div>
             </div>
           </div>
@@ -412,7 +413,7 @@ html, body {
             <div class="icon-circle ic5"><i class="fas fa-robot"></i></div>
             <div>
               <div class="fc-title">AI 상담 가이드북 <span class="small-note" style="font-weight:400;">(Web 기반)</span></div>
-              <div class="fc-desc">상담서비스의 품질유지를 위해, 자체적으로 AI 상담가이드북과<br/>AI 사후관리 도구를 제작하여 운영하고 있습니다.</div>
+              <div class="fc-desc">자산관리 상담의 품질유지를 위해, AI 상담도구를 자체 개발하여 운영합니다.</div>
             </div>
           </div>
           <div class="feature-card">
@@ -521,7 +522,7 @@ html, body {
     <div class="page dark-page" id="p6">
       <div class="dark-inner">
         <div class="pg-title">AI 기반 상담가이드북<span style="font-size:18px;font-weight:400;">_일부</span></div>
-        <div class="pg-sub">알파본부가 자체 제작한 웹 전용 연금/은퇴상담 가이드북을 소개합니다.</div>
+        <div class="pg-sub">자체 제작한 웹 전용 연금/은퇴상담 가이드북을 소개합니다.</div>
         <div style="flex:1;"></div>
         <div class="ai-slider-box" id="aibox">
           <div class="ai-track" id="aitrack">
@@ -640,10 +641,13 @@ document.getElementById('app').addEventListener('touchstart', e => {
 }, { passive: true });
 
 document.getElementById('app').addEventListener('touchend', e => {
-  if (touchInInner || isAnimating) return;  // 애니메이션 중 터치 무시 추가
+  if (isAnimating) return;
   const dy = touchStartY - e.changedTouches[0].clientY;
   const dx = Math.abs(touchStartX - e.changedTouches[0].clientX);
-  if (Math.abs(dy) > 50 && Math.abs(dy) > dx * 1.2) {
+  const isVertical = Math.abs(dy) > 50 && Math.abs(dy) > dx * 1.2;
+  // 내부 슬라이더라도 수직 스와이프면 페이지 전환 허용
+  if (touchInInner && !isVertical) return;
+  if (isVertical) {
     dy > 0 ? goToPage(curPage + 1) : goToPage(curPage - 1);
   }
 }, { passive: true });
@@ -785,7 +789,15 @@ function closeLightboxBg(e)  { if (e.target.id === 'lightbox') closeLightbox(); 
 //  외부 링크
 // ═══════════════════════════════════════════
 function callPhone() { window.location.href = 'tel:01037329326'; }
-function openKakao() { window.open('https://open.kakao.com/o/sGSSodii', '_blank'); }
+function openKakao() {
+  const a = document.createElement('a');
+  a.href = 'https://open.kakao.com/o/sGSSodii';
+  a.target = '_blank';
+  a.rel = 'noopener noreferrer';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+}
 </script>
 </body>
 </html>
