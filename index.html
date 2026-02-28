@@ -102,10 +102,10 @@ html, body {
   position: relative; z-index: 2;
   flex: 1; display: flex; flex-direction: column;
   justify-content: center; align-items: center;
-  padding: 50px 30px 80px;
+  padding: 0 30px 80px;
   text-align: center;
 }
-.badge-row { display: flex; flex-direction: column; gap: 8px; margin-bottom: 30px; align-items: center; }
+.badge-row { position: absolute; top: 16.67%; left: 0; right: 0; z-index: 3; display: flex; flex-direction: column; gap: 8px; align-items: center; }
 .badge {
   background: rgba(255,255,255,0.15);
   backdrop-filter: blur(10px);
@@ -114,7 +114,7 @@ html, body {
   font-size: 12px; font-weight: 500; color: white;
 }
 .p1-title { font-size: 32px; color: white; line-height: 1.45; letter-spacing: -0.02em; margin-bottom: 20px; }
-.p1-sub { font-size: 16px; color: rgba(255,255,255,0.9); line-height: 1.6; margin-bottom: 40px; }
+.p1-sub { font-size: 16px; color: rgba(255,255,255,0.9); line-height: 1.6; margin-bottom: 68px; }
 .btn-gold {
   padding: 16px 40px; border-radius: 8px;
   font-size: 18px; font-weight: 700; cursor: pointer;
