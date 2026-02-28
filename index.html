@@ -658,25 +658,26 @@ window.addEventListener('resize', () => {
 // ═══════════════════════════════════════════
 function runKpiCountUp() {
   const duration = 1800;
+  const raf = window.requestAnimationFrame || (cb => setTimeout(cb, 16));
   const cards = document.querySelectorAll('#p5 .kpi-num[data-count]');
   cards.forEach(el => {
     const target = parseInt(el.dataset.count, 10);
     const suffix = el.dataset.suffix || '';
     const sep    = el.dataset.sep === 'true';
-    const start  = performance.now();
+    const start  = Date.now();           // performance.now() 대신 Date.now() — WebView 호환
     function fmt(n) {
       return sep ? n.toLocaleString('ko-KR') + suffix : n + suffix;
     }
     el.textContent = fmt(0);
-    function step(now) {
-      const t = Math.min((now - start) / duration, 1);
+    function step() {
+      const t = Math.min((Date.now() - start) / duration, 1);
       // easeOutQuart: 처음 빠르게, 마지막에 천천히
       const ease = 1 - Math.pow(1 - t, 4);
       const cur  = Math.round(target * ease);
       el.textContent = fmt(cur);
-      if (t < 1) requestAnimationFrame(step);
+      if (t < 1) raf(step);
     }
-    requestAnimationFrame(step);
+    raf(step);
   });
 }
 
