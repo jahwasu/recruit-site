@@ -118,7 +118,7 @@ html, body {
 }
 .btn-gold:hover { background: var(--gold-hover); transform: translateY(-2px); box-shadow: 0 8px 20px rgba(255,215,0,.4); }
 #p1 .footnote {
-  position: absolute; bottom: 20px; left: 30px; right: 50px;
+  position: absolute; bottom: max(20px, env(safe-area-inset-bottom)); left: 30px; right: 50px;
   z-index: 2; font-size: 12px; color: rgba(255,255,255,0.75); line-height: 1.5;
 }
 .swipe-hint {
@@ -205,15 +205,16 @@ html, body {
 .lb-cap-meta { font-size: 14px; color: rgba(255,255,255,.85); }
 
 /* ══ PAGE 4 ══ */
-#p4 .dark-inner { overflow-y: auto; -webkit-overflow-scrolling: touch; padding-bottom: max(16px, env(safe-area-inset-bottom)); }
-#p4 .cards-col { display: flex; flex-direction: column; gap: 14px; flex: 1; }
-.ws-card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 12px rgba(0,0,0,.08); flex: 1; display: flex; flex-direction: column; }
-.ws-img { width: 100%; height: 160px; object-fit: cover; flex-shrink: 0; }
+#p4 .dark-inner { overflow-y: hidden; padding-bottom: max(20px, env(safe-area-inset-bottom)); }
+#p4 .cards-col { display: flex; flex-direction: column; gap: 10px; flex: 1; }
+.ws-card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 12px rgba(0,0,0,.08); flex: 1; display: flex; flex-direction: column; transition: all .3s; }
+.ws-card:active { transform: scale(0.97); box-shadow: 0 4px 16px rgba(0,0,0,.14); }
+.ws-img { width: 100%; height: 130px; object-fit: cover; flex-shrink: 0; }
 .ws-body { flex: 1; display: flex; flex-direction: column; }
-.ws-body { padding: 14px 16px; }
-.ws-title { font-size: 18px; font-weight: 700; color: #1a1a1a; margin-bottom: 8px; }
-.ws-desc { font-size: 12px; color: #666; margin-bottom: 10px; line-height: 1.4; }
-.ws-features { display: flex; flex-direction: column; gap: 6px; }
+.ws-body { padding: 10px 14px; }
+.ws-title { font-size: 16px; font-weight: 700; color: #1a1a1a; margin-bottom: 6px; }
+.ws-desc { font-size: 11px; color: #666; margin-bottom: 8px; line-height: 1.4; }
+.ws-features { display: flex; flex-direction: column; gap: 4px; }
 .ws-feat { display: flex; align-items: flex-start; gap: 8px; }
 .ws-check {
   width: 16px; height: 16px; border-radius: 50%;
@@ -234,6 +235,7 @@ html, body {
   box-shadow: 0 2px 8px rgba(0,0,0,.08); transition: all .3s; cursor: pointer;
 }
 .kpi-card:hover { transform: translateY(-4px); box-shadow: 0 8px 16px rgba(0,0,0,.12); }
+.kpi-card:active { transform: scale(0.95); box-shadow: 0 2px 8px rgba(0,0,0,.1); }
 .kpi-icon {
   width: 46px; height: 46px; border-radius: 50%;
   display: flex; align-items: center; justify-content: center; margin-bottom: 10px;
@@ -249,7 +251,7 @@ html, body {
 #p6 .ai-slider-box {
   border-radius: 12px; background: white; overflow: hidden;
   box-shadow: 0 4px 12px rgba(0,0,0,.1);
-  height: 290px; position: relative; margin-bottom: 0;
+  height: clamp(180px, 38vh, 290px); position: relative; margin-bottom: 0;
 }
 #p6 .ai-track { display: flex; height: 100%; transition: transform .3s cubic-bezier(.4,0,.2,1); }
 #p6 .ai-item { min-width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; padding: 16px; }
@@ -270,7 +272,7 @@ html, body {
 #p7 { background: var(--dark); display: flex; flex-direction: column; }
 #p7 .inner {
   flex: 1; display: flex; flex-direction: column;
-  padding: 50px 30px 20px;
+  padding: 50px 30px max(20px, env(safe-area-inset-bottom));
   justify-content: space-between;
 }
 .p7-title { font-size: 26px; font-weight: 400; color: white; line-height: 1.55; text-align: center; margin-bottom: 0; }
@@ -337,6 +339,18 @@ html, body {
 .mbtn-gold:hover { background: var(--gold-hover); transform: translateY(-2px); }
 .mbtn-kakao { background: #FEE500; color: #000; }
 .mbtn-kakao:hover { background: #FDD835; transform: translateY(-2px); }
+
+/* ── TOAST ── */
+#toast {
+  position: fixed; bottom: calc(30px + env(safe-area-inset-bottom));
+  left: 50%; transform: translateX(-50%);
+  background: rgba(0,0,0,0.82); color: white;
+  padding: 12px 20px; border-radius: 24px;
+  font-size: 13px; line-height: 1.5; text-align: center;
+  white-space: normal; max-width: 80vw; z-index: 9999;
+  opacity: 0; transition: opacity .3s; pointer-events: none;
+}
+#toast.show { opacity: 1; }
 </style>
 </head>
 <body>
@@ -420,7 +434,7 @@ html, body {
             <div class="icon-circle ic6"><i class="fas fa-handshake"></i></div>
             <div>
               <div class="fc-title">자산관리 전문가 양성 프로그램</div>
-              <div class="fc-desc">매주 Case Study를 통해 실전 사례기반의 자산관리/은퇴설계/연금솔루션을 발전시키고 있습니다.</div>
+              <div class="fc-desc">매주 Case Study를 통해 실전 사례 기반의 자산관리/은퇴설계 솔루션을 발전시킵니다.</div>
             </div>
           </div>
         </div>
@@ -572,6 +586,8 @@ html, body {
   </div><!-- /slide-track -->
 </div><!-- /app -->
 
+<div id="toast">카카오톡으로 이동합니다.<br/>돌아오려면 Safari 앱을 다시 탭하세요.</div>
+
 <!-- 모달 -->
 <div class="modal-bg" id="contactModal" onclick="closeModalBg(event)">
   <div class="modal-box" style="padding:24px 22px;">
@@ -611,14 +627,23 @@ let isAnimating = false;
 // 내부 슬라이더가 있는 페이지 인덱스 (터치 충돌 방지)
 const innerSliderPages = new Set([2, 5]); // PAGE 3(idx2), PAGE 6(idx5)
 
+function getPageH() { return window.innerHeight; }
+
 function goToPage(idx) {
   if (idx < 0 || idx >= totalPages || isAnimating) return;
   isAnimating = true;
   curPage = idx;
-  track.style.transform = `translate3d(0, -${curPage * 100}vh, 0)`;
+  track.style.transform = `translate3d(0, -${curPage * getPageH()}px, 0)`;
   pageDots.forEach((d, i) => d.classList.toggle('active', i === curPage));
   setTimeout(() => { isAnimating = false; }, 550);
 }
+
+// 화면 크기 변경(회전 등) 시 위치 재계산
+window.addEventListener('resize', () => {
+  track.style.transition = 'none';
+  track.style.transform = `translate3d(0, -${curPage * getPageH()}px, 0)`;
+  setTimeout(() => { track.style.transition = 'transform 0.5s cubic-bezier(0.4,0,0.2,1)'; }, 50);
+});
 
 // 점 클릭
 pageDots.forEach(d =>
@@ -797,6 +822,10 @@ function openKakao() {
   document.body.appendChild(a);
   a.click();
   document.body.removeChild(a);
+  // 복귀 안내 토스트
+  const t = document.getElementById('toast');
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3500);
 }
 </script>
 </body>
