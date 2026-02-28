@@ -351,9 +351,56 @@ html, body {
   opacity: 0; transition: opacity .3s; pointer-events: none;
 }
 #toast.show { opacity: 1; }
+
+/* ── 카카오톡 인앱 브라우저 배너 ── */
+#kakao-banner {
+  display: none; position: fixed; top: 0; left: 0; right: 0;
+  background: #FEE500; color: #000;
+  padding: 12px 16px; z-index: 9998;
+  font-size: 13px; font-weight: 600; text-align: center; line-height: 1.5;
+}
+#kakao-banner a {
+  display: inline-block; margin-top: 6px;
+  background: #000; color: #FEE500;
+  padding: 6px 16px; border-radius: 20px;
+  font-size: 12px; font-weight: 700; text-decoration: none;
+}
 </style>
 </head>
 <body>
+
+<!-- 카카오톡 인앱 브라우저 감지 배너 -->
+<div id="kakao-banner">
+  카카오톡 내부 브라우저로 열려 있습니다.<br/>
+  <a id="kakao-open-btn" href="#">Safari / Chrome에서 열기 ↗</a>
+</div>
+
+<script>
+(function(){
+  const ua = navigator.userAgent || '';
+  const isKakao = /KAKAOTALK/i.test(ua);
+  if (!isKakao) return;
+  const banner = document.getElementById('kakao-banner');
+  banner.style.display = 'block';
+  const btn = document.getElementById('kakao-open-btn');
+  const url = location.href;
+  // iOS: x-safari scheme, Android: intent scheme
+  const isIOS = /iPhone|iPad|iPod/i.test(ua);
+  if (isIOS) {
+    btn.href = url; // iOS는 상단 공유→Safari 안내
+    btn.onclick = function(e) {
+      e.preventDefault();
+      // iOS KakaoTalk에서 Safari로 열기 유도
+      location.href = 'kakaotalk://launch?url=' + encodeURIComponent(url);
+      setTimeout(() => { location.href = url; }, 500);
+    };
+  } else {
+    // Android: intent scheme으로 외부 브라우저 강제
+    btn.href = 'intent://' + url.replace(/^https?:\/\//, '') +
+               '#Intent;scheme=https;package=com.android.chrome;end';
+  }
+})();
+</script>
 
 <div id="app">
   <div id="page-dots">
@@ -393,7 +440,7 @@ html, body {
     <!-- PAGE 2 -->
     <div class="page dark-page" id="p2">
       <div class="dark-inner">
-        <div class="pg-title">고객사 임직원을 위한 특화서비스 6</div>
+        <div class="pg-title">고객사 임직원을 위한 특화서비스</div>
         <div class="cards-list">
           <div class="feature-card">
             <div class="icon-circle ic1"><i class="fas fa-building"></i></div>
@@ -412,15 +459,15 @@ html, body {
           <div class="feature-card">
             <div class="icon-circle ic3"><i class="fas fa-graduation-cap"></i></div>
             <div>
-              <div class="fc-title">신입사원 자산관리 교육 4회</div>
+              <div class="fc-title">신입사원 자산관리 교육 4회 <span class="small-note" style="font-weight:400;">('25년 기준)</span></div>
               <div class="fc-desc">신입사원 연수과정에 함께하여 사회 초년생의 자산증식 첫걸음을 돕고 있습니다.</div>
             </div>
           </div>
           <div class="feature-card">
             <div class="icon-circle ic4"><i class="fas fa-piggy-bank"></i></div>
             <div>
-              <div class="fc-title">우리사주조합 전국사업장 세미나 수행</div>
-              <div class="fc-desc">우리사주조합이 주최하는 전국사업장 순회 부부동반 자산관리 세미나를 수행하고 있습니다.</div>
+              <div class="fc-title">사주조합 전국사업장 세미나 수행</div>
+              <div class="fc-desc">사주조합이 주최하는 전국사업장 순회 부부동반 자산관리 세미나를 수행하고 있습니다.</div>
             </div>
           </div>
           <div class="feature-card">
@@ -489,9 +536,9 @@ html, body {
         <div class="pg-sub">주요 사업장에 운영중인 알파본부 상담센터를 소개합니다.</div>
         <div class="cards-col">
           <div class="ws-card">
-            <img class="ws-img" src="center_01.png" alt="광명 상담센터 전경"/>
+            <img class="ws-img" src="center_01.png" alt="G 상담센터 전경"/>
             <div class="ws-body">
-              <div class="ws-title">광명 상담센터</div>
+              <div class="ws-title">G 상담센터</div>
               <div class="ws-desc">사업장 구내식당 내 위치하여 임직원의 접근성이 뛰어납니다.</div>
               <div class="ws-features">
                 <div class="ws-feat"><div class="ws-check"><i class="fas fa-check"></i></div><div class="ws-feat-text">재무/연금상담과 병원비 청구지원</div></div>
@@ -501,9 +548,9 @@ html, body {
             </div>
           </div>
           <div class="ws-card">
-            <img class="ws-img" src="center_02.jpg" alt="화성 상담센터 내부"/>
+            <img class="ws-img" src="center_02.jpg" alt="H 상담센터 내부"/>
             <div class="ws-body">
-              <div class="ws-title">화성 상담센터</div>
+              <div class="ws-title">H 상담센터</div>
               <div class="ws-desc">맞춤형 상담을 지원하는 안정된 독립형 공간입니다.</div>
               <div class="ws-features">
                 <div class="ws-feat"><div class="ws-check"><i class="fas fa-check"></i></div><div class="ws-feat-text">구내 은행/카페/여행사와 인접한 최적의 입지</div></div>
@@ -635,6 +682,7 @@ function goToPage(idx) {
   curPage = idx;
   track.style.transform = `translate3d(0, -${curPage * getPageH()}px, 0)`;
   pageDots.forEach((d, i) => d.classList.toggle('active', i === curPage));
+  if (sliderResets[idx]) sliderResets[idx]();
   setTimeout(() => { isAnimating = false; }, 550);
 }
 
@@ -644,6 +692,9 @@ window.addEventListener('resize', () => {
   track.style.transform = `translate3d(0, -${curPage * getPageH()}px, 0)`;
   setTimeout(() => { track.style.transition = 'transform 0.5s cubic-bezier(0.4,0,0.2,1)'; }, 50);
 });
+
+// 슬라이더 리셋 콜백 등록소
+const sliderResets = {};
 
 // 점 클릭
 pageDots.forEach(d =>
@@ -746,6 +797,9 @@ document.addEventListener('keydown', e => {
     else if (dx >  50 && cur > 0)                cur--;
     upd();
   }, { passive: true });
+
+  // 페이지 2(idx=2) 진입 시 첫 슬라이드로 리셋
+  sliderResets[2] = () => { cur = 0; trk.style.transition = 'none'; upd(); };
 })();
 
 
@@ -794,6 +848,9 @@ document.addEventListener('keydown', e => {
   }
   function resetAuto() { clearInterval(autoTimer); startAuto(); }
   startAuto();
+
+  // 페이지 5(idx=5) 진입 시 첫 슬라이드로 리셋
+  sliderResets[5] = () => { cur = 0; clearInterval(autoTimer); trk.style.transition = 'none'; upd(); startAuto(); };
 })();
 
 
