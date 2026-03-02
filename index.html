@@ -117,6 +117,7 @@ html, body {
 .p1-sub {
   font-family: 'Gowun Batang', serif;
   font-size: 18px; color: rgba(255,255,255,0.95); line-height: 1.8;
+  letter-spacing: -0.02em;  /* 자간 90% 축소 (기본 대비 10% 타이트) */
   position: absolute; top: 65%; left: 30px; right: 30px; transform: translateY(-50%); z-index: 2;
   text-shadow: 0 1px 2px rgba(0,0,0,0.9), 0 2px 8px rgba(0,0,0,0.8), 0 0 20px rgba(0,0,0,0.6);
 }
@@ -583,7 +584,7 @@ html, body {
     <div class="page" id="p7">
       <div class="inner">
         <div style="text-align:center;">
-          <h1 class="p7-title">보장분석을 넘어,<br/><span class="p7-bold" style="color:#3b82f6">자산관리 전문가로 성장</span>할<br/>인재를 찾습니다.</h1>
+          <h1 class="p7-title">보장분석을 넘어,<br/><span class="p7-bold" style="color:#FEE500">자산관리 전문가로 성장</span>할<br/>인재를 찾습니다.</h1>
         </div>
         <div class="qr-card">
           <div class="qr-label">알파본부 입사문의 오픈채팅방</div>
@@ -627,6 +628,17 @@ html, body {
 </div>
 
 <script>
+// ═══════════════════════════════════════════
+//  가벼운 햅틱 (2p 6박스, 4p 2박스, 5p 6박스)
+// ═══════════════════════════════════════════
+function lightHaptic() {
+  if (navigator.vibrate) navigator.vibrate(10);
+}
+document.getElementById('app').addEventListener('click', e => {
+  const box = e.target.closest('.feature-card, .ws-card, .kpi-card');
+  if (box) lightHaptic();
+}, { passive: true });
+
 // ═══════════════════════════════════════════
 //  메인 페이지 전환
 // ═══════════════════════════════════════════
