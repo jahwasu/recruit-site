@@ -603,7 +603,7 @@ html, body {
         <div class="qr-card">
           <div class="qr-label">알파본부 입사문의 오픈채팅방</div>
           <div class="qr-img"><img src="qr.JPG" alt="오픈채팅 QR코드"/></div>
-          <a class="qr-url" href="https://open.kakao.com/o/sGSSodii" target="_self">https://open.kakao.com/o/sGSSodii</a>
+          <a class="qr-url" href="https://open.kakao.com/o/sGSSodii" target="_blank" rel="noopener noreferrer">https://open.kakao.com/o/sGSSodii</a>
         </div>
         <div class="cta-btns">
           <button class="btn-kakao" onclick="openKakao()"><i class="fas fa-comment"></i> 입사/AI상담도구 문의</button>
@@ -615,7 +615,7 @@ html, body {
   </div><!-- /slide-track -->
 </div><!-- /app -->
 
-<div id="toast">오픈채팅으로 이동합니다.<br/>돌아오려면 ← 뒤로가기 버튼을 눌러주세요.</div>
+<div id="toast">오픈채팅이 새 탭에서 열립니다.<br/>채용 페이지로 돌아오려면 이전 탭을 눌러주세요.</div>
 
 <!-- 모달 -->
 <div class="modal-bg" id="contactModal" onclick="closeModalBg(event)">
@@ -624,7 +624,7 @@ html, body {
     <div class="modal-ttl" style="font-size:17px; margin-bottom:18px; line-height:1.5;">입사문의 or AI 상담도구 문의</div>
     <div class="modal-sec" style="margin-bottom:0; padding-bottom:0; border-bottom:none;">
       <div class="modal-sec-lbl">알파본부 입사/마케팅 문의 오픈채팅방</div>
-      <p class="modal-back-hint">오픈채팅 이동 후 돌아오려면 <strong>← 뒤로가기</strong> 버튼을 눌러주세요.</p>
+      <p class="modal-back-hint">오픈채팅은 <strong>새 탭</strong>에서 열립니다. 채용 페이지로 돌아오려면 <strong>이전 탭</strong>을 다시 눌러주세요.</p>
       <div class="modal-btn-row">
         <button class="mbtn mbtn-kakao" onclick="openKakao()"><i class="fas fa-comment"></i> 오픈채팅방 열기</button>
       </div>
@@ -907,7 +907,7 @@ function callPhone() { window.location.href = 'tel:01037329326'; }
 function openKakao() {
   const a = document.createElement('a');
   a.href = 'https://open.kakao.com/o/sGSSodii';
-  a.target = '_self';  /* 같은 탭으로 이동 → 뒤로가기로 채용 페이지 복귀 가능 */
+  a.target = '_blank';  /* 새 탭에서 열기 → 채용 페이지 탭이 그대로 유지됨 */
   a.rel = 'noopener noreferrer';
   document.body.appendChild(a);
   a.click();
