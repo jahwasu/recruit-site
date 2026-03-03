@@ -332,8 +332,9 @@ html, body {
 .modal-bg.open { display: flex; }
 .modal-box {
   background: white; border-radius: 16px; padding: 34px 26px;
-  width: 90%; max-width: 380px; position: relative;
-  box-shadow: 0 20px 60px rgba(0,0,0,.4); max-height: 90vh; overflow-y: auto;
+  width: 90%; max-width: 380px; min-width: 0; position: relative;
+  box-shadow: 0 20px 60px rgba(0,0,0,.4); max-height: 90vh; overflow-y: auto; overflow-x: hidden;
+  box-sizing: border-box;
 }
 .modal-x {
   position: absolute; top: 14px; right: 14px;
@@ -348,9 +349,11 @@ html, body {
 .modal-mgr { font-size: 14px; color: #666; text-align: center; margin-bottom: 16px; }
 .modal-sec-lbl { font-size: 13px; font-weight: 600; color: #666; text-align: center; margin-bottom: 10px; }
 .modal-back-hint {
-  font-size: 12px; color: #555; line-height: 1.5; text-align: center;
-  margin-bottom: 14px; padding: 10px 12px; background: #f5f5f5; border-radius: 8px;
+  font-size: 11px; color: #555; line-height: 1.5; text-align: center;
+  margin-bottom: 14px; padding: 8px 10px; background: #f5f5f5; border-radius: 8px;
   word-break: keep-all; overflow-wrap: break-word;
+  max-width: 100%; min-width: 0; overflow: hidden;
+  box-sizing: border-box;
 }
 .modal-back-hint strong { color: #333; }
 .modal-btn-row { display: flex; gap: 10px; }
@@ -599,7 +602,7 @@ html, body {
         <div class="qr-card">
           <div class="qr-label">알파본부 입사문의 오픈채팅방</div>
           <div class="qr-img"><img src="qr.JPG" alt="오픈채팅 QR코드"/></div>
-          <a class="qr-url" href="https://open.kakao.com/o/sGSSodii" target="_blank">https://open.kakao.com/o/sGSSodii</a>
+          <a class="qr-url" href="https://open.kakao.com/o/sGSSodii" target="_self">https://open.kakao.com/o/sGSSodii</a>
         </div>
         <div class="cta-btns">
           <button class="btn-kakao" onclick="openKakao()"><i class="fas fa-comment"></i> 입사/AI상담도구 문의</button>
@@ -611,7 +614,7 @@ html, body {
   </div><!-- /slide-track -->
 </div><!-- /app -->
 
-<div id="toast">오픈채팅으로 이동합니다.<br/>돌아오려면 브라우저의 ← 뒤로가기 버튼을 누르거나, 이전 탭을 다시 눌러주세요.</div>
+<div id="toast">오픈채팅으로 이동합니다.<br/>돌아오려면 ← 뒤로가기 버튼을 눌러주세요.</div>
 
 <!-- 모달 -->
 <div class="modal-bg" id="contactModal" onclick="closeModalBg(event)">
@@ -620,7 +623,7 @@ html, body {
     <div class="modal-ttl" style="font-size:17px; margin-bottom:18px; line-height:1.5;">입사문의 or AI 상담도구 문의</div>
     <div class="modal-sec" style="margin-bottom:0; padding-bottom:0; border-bottom:none;">
       <div class="modal-sec-lbl">알파본부 입사/마케팅 문의 오픈채팅방</div>
-      <p class="modal-back-hint">오픈채팅으로 이동한 뒤, 채용 페이지로 돌아오려면 <strong>브라우저 상단·하단의 ← 뒤로가기</strong> 버튼을 눌러주세요.</p>
+      <p class="modal-back-hint">오픈채팅 이동 후 돌아오려면 <strong>← 뒤로가기</strong> 버튼을 눌러주세요.</p>
       <div class="modal-btn-row">
         <button class="mbtn mbtn-kakao" onclick="openKakao()"><i class="fas fa-comment"></i> 오픈채팅방 열기</button>
       </div>
@@ -903,7 +906,7 @@ function callPhone() { window.location.href = 'tel:01037329326'; }
 function openKakao() {
   const a = document.createElement('a');
   a.href = 'https://open.kakao.com/o/sGSSodii';
-  a.target = '_blank';
+  a.target = '_self';  /* 같은 탭으로 이동 → 뒤로가기로 채용 페이지 복귀 가능 */
   a.rel = 'noopener noreferrer';
   document.body.appendChild(a);
   a.click();
